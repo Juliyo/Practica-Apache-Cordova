@@ -1,0 +1,1 @@
+﻿// Las invalidaciones específicas de plataforma se colocarán en las versiones de carpeta de combinaciones de este archivo

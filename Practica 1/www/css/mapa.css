@@ -1,0 +1,43 @@
+﻿html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+header{
+    background-color: #141414;
+    color: #ffffff;
+}
+#floating-panel{
+    position: absolute;
+    top: 10px;
+    left: 25%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+    text-align: center;
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 10px;
+
+}
+#home-button{
+    position: absolute;
+    left: 10%;
+    z-index: 5;
+    bottom: 5%;
+}
+#home-button .btn-primary {
+    background-color: #161616;
+}
+#map {
+    display: block;
+    position: absolute;
+    height: auto;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 50px;
+    margin-bottom:90px;
+}

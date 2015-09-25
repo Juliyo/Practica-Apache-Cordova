@@ -1,0 +1,40 @@
+﻿html,body{
+    height: 100%;
+}
+header{
+    background-color: #141414;
+    color: #ffffff;
+}
+.fondo-1{
+    position:fixed;
+    z-index:1;
+    width: 100%;
+    
+}
+.fondo-2{
+    background-image: url("../images/candidata4.jpg");
+    position: fixed;
+    background-size: cover;
+    width: 100%;
+    height:100%;
+    -webkit-filter: blur(1px);
+    z-index: 0;
+}
+.boton input{
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+
+}
+.boton .btn-primary {
+    background-color: #161616;
+}
+.parent{
+    padding: 5% 0;
+}
+.menu{
+    padding: 10% 0;
+}
+#boton{
+    margin-top: 13px;
+}
