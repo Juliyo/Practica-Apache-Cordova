@@ -1,5 +1,6 @@
 {
   "changedFilesIos": [
+    "www\\scripts\\iniciarBase.js",
     "bower.json",
     "res\\icons\\android\\icon-72-hdpi.png",
     "res\\screens\\android\\screen-mdpi-landscape.png",
@@ -15,7 +16,6 @@
     "plugins\\cordova-plugin-whitelist\\doc\\ja\\README.md",
     "res\\screens\\ios\\screen-ipad-portrait-2x.png",
     "plugins\\cordova-plugin-whitelist\\NOTICE",
-    "www\\creditos.html",
     "res\\screens\\ios\\screen-iphone-portrait-2x.png",
     "res\\icons\\windows\\Square71x71Logo.scale-240.png",
     "merges\\android\\scripts\\platformOverrides.js",
@@ -93,9 +93,20 @@
     "plugins\\cordova-plugin-whitelist\\README.md",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
-    "www\\scripts\\iniciarBase.js"
+    "www\\images\\candidata1.jpg",
+    "www\\images\\candidata6.jpg",
+    "www\\images\\68515289.jpg",
+    "www\\css\\acercade.css",
+    "www\\acercade.html"
   ],
-  "deletedFilesIos": [],
+  "deletedFilesIos": [
+    "npm-debug.log",
+    "www\\images\\brushed_@2X.png",
+    "www\\images\\school.png",
+    "www\\images\\brushed.png",
+    "www\\images\\canidadata7.jpg",
+    "www\\creditos.html"
+  ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [],

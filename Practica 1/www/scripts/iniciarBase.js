@@ -44,7 +44,7 @@ function add(o, tabla) {
     }
 
     data.oncomplete = function (e) {
-        alert('Objeto agregado correctamente ' + tabla);
+        //alert('Objeto agregado correctamente ' + tabla);
     };
 
 

@@ -8,47 +8,78 @@
     <link href="css/index.css" rel="stylesheet" />
     <title>Página Principal - Hola Mundo</title>
 </head>
-<body onload="startDB();">
+<body onload="startDB(), onload();">
     <header>
-        <div class="container">
-            <h1>Práctica 1</h1>
+        <div class="navbar navbar-default">
+            <nav>
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Inicio</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                </div>
+            </nav>
         </div>
     </header>
-    <div class="fondo-1">
-        <div class="parent">
+    <main>
+        <div class="fondo-1">
             <div class="menu">
-            <div class="row">
-                <!--<div class="menu">-->
-                <div class="col-xs-6 col-xs-offset-3">
-                    <div class="boton">
-                        <a href="mapa.html"><input type="button" class="btn btn-primary btn-lg" value="Iniciar Mapa"></a>
-                        <br />
+                <div class="row">
+                    <!--<div class="menu">-->
+                    <div class="center-block">
+                        <div class="boton center-block">
+                            <a class="btn btn-primary" href="mapa.html" role="button">Iniciar mapa</a>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <div class="boton">
-                        <br />
-                        <a href="creditos.html"><input type="button" class="btn btn-primary btn-lg" value="Créditos"></a>
+                </div>
+                <div class="row">
+                    <div class="center-block">
+                        <div class="boton center-block">
+                            <a class="btn btn-primary" href="acercade.html" role="button">Acerca de</a>
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
-        </div>
-        
-        
-                
-           <!-- </div>-->
-        
-        
-    </div>
-    <div class="fondo-2"></div>
 
+        </div>
+        <div class="fondo-2"></div>
+    </main>
+    <script>
+        function onload() {
+            if (window.orientation == 0) // Portrait
+            {
+                $(".menu").css({ "padding-top": "45%" });
+                $(".fondo-2").css({ "background-position": "-300px -65px" });
+            }
+            else // Landscape
+            {
+                $(".menu").css({ "padding-top": "13%" });
+                $(".fondo-2").css({ "background-position": "-130px -65px" });
+            }
+            $(window).on("orientationchange", function () {
+                if (window.orientation == 0) // Portrait
+                {
+                    $(".menu").css({ "padding-top": "45%" });
+                    $(".fondo-2").css({ "background-position": "-300px -65px" });
+                }
+                else // Landscape
+                {
+                    $(".menu").css({ "padding-top": "13%" });
+                    $(".fondo-2").css({ "background-position": "-130px -65px" });
+                }
+            });
+        }
+        
+        
+    </script>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <!-- Referencia de Cordova que se agrega a la aplicación cuando se compila. -->
     <script src="cordova.js"></script>
     <script src="scripts/iniciarBase.js"></script>
