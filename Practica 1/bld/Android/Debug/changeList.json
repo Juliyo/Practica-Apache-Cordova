@@ -7,6 +7,7 @@
     "merges\\android\\scripts\\android2.3-jscompat.js",
     "merges\\windows\\scripts\\winstore-jscompat.js",
     "res\\icons\\ios\\icon-60.png",
+    "www\\images\\68515289.jpg",
     "res\\screens\\ios\\screen-iphone-landscape-736h.png",
     "res\\icons\\windows\\StoreLogo.scale-100.png",
     "www\\scripts\\index.js",
@@ -16,6 +17,7 @@
     "plugins\\cordova-plugin-whitelist\\doc\\ja\\README.md",
     "res\\screens\\ios\\screen-ipad-portrait-2x.png",
     "plugins\\cordova-plugin-whitelist\\NOTICE",
+    "www\\scripts\\mapa.js",
     "res\\screens\\ios\\screen-iphone-portrait-2x.png",
     "res\\icons\\windows\\Square71x71Logo.scale-240.png",
     "merges\\android\\scripts\\platformOverrides.js",
@@ -24,6 +26,7 @@
     "www\\mapa.html",
     "res\\screens\\android\\screen-hdpi-portrait.png",
     "www\\css\\index.css",
+    "www\\css\\acercade.css",
     "res\\icons\\windows\\StoreLogo.scale-240.png",
     "plugins\\cordova-plugin-whitelist\\doc\\it\\README.md",
     "res\\screens\\ios\\screen-ipad-landscape.png",
@@ -33,7 +36,9 @@
     "plugins\\fetch.json",
     "config.xml",
     "res\\screens\\wp8\\SplashScreenImage.jpg",
+    "www\\images\\candidata6.jpg",
     "www\\images\\candidata4.jpg",
+    "www\\images\\candidata1.jpg",
     "res\\screens\\ios\\screen-ipad-landscape-2x.png",
     "plugins\\cordova-plugin-whitelist\\doc\\pl\\README.md",
     "res\\screens\\ios\\screen-iphone-568h-2x.png",
@@ -63,6 +68,7 @@
     "taco.json",
     "res\\icons\\windows\\Square150x150Logo.scale-240.png",
     "res\\icons\\android\\icon-36-ldpi.png",
+    "www\\acercade.html",
     "merges\\windows\\scripts\\platformOverrides.js",
     "res\\screens\\ios\\screen-iphone-portrait.png",
     "Project_Readme.html",
@@ -93,23 +99,16 @@
     "plugins\\cordova-plugin-whitelist\\README.md",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
     "res\\screens\\android\\screen-mdpi-portrait.png",
-    "www\\images\\candidata1.jpg",
-    "www\\images\\candidata6.jpg",
-    "www\\images\\68515289.jpg",
-    "www\\css\\acercade.css",
-    "www\\acercade.html"
+    "www\\scripts\\iniciarbase.js"
   ],
   "deletedFilesIos": [
-    "npm-debug.log",
-    "www\\images\\brushed_@2X.png",
-    "www\\images\\school.png",
-    "www\\images\\brushed.png",
-    "www\\images\\canidadata7.jpg",
-    "www\\creditos.html"
+    "npm-debug.log"
   ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
-  "changedFiles": [],
+  "changedFiles": [
+    "www\\scripts\\mapa.js"
+  ],
   "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []

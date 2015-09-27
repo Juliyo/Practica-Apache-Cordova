@@ -1,14 +1,15 @@
 ﻿
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 var dataBase = null;
+var active = null;
 function startDB() {
             
-    dataBase = indexedDB.open("monitor", 3);
+    dataBase = indexedDB.open("monitor", 1);
                 
     dataBase.onupgradeneeded = function (e) {
         active = dataBase.result;
-        active.deleteObjectStore("EstacionesLectoras");
-        active.deleteObjectStore("Lecturas");
+        //active.deleteObjectStore("EstacionesLectoras");
+        //active.deleteObjectStore("Lecturas");
         object1 = active.createObjectStore("EstacionesLectoras", { keyPath : 'identificadorLector', autoIncrement : false });
         object1.createIndex('by_longitud', 'longitud', { unique : false });
         object1.createIndex('by_latitud', 'latitud', { unique: false });
@@ -31,7 +32,7 @@ function startDB() {
     };
 }
 function add(o, tabla) {
-    var active = dataBase.result;
+    active = dataBase.result;
     var data = active.transaction(["EstacionesLectoras", "Lecturas"], "readwrite");
     var request = null;
     var estacion = null;
@@ -50,7 +51,6 @@ function add(o, tabla) {
 
 }
 function rellenar() {
-    
     //EstacionesLectoras
     add({ identificadorLector: "1", longitud: "38.384467", latitud: "-0.510654" }, "EstacionesLectoras");
     add({ identificadorLector: "2", longitud: "38.387372", latitud: "-0.517551" }, "EstacionesLectoras");
