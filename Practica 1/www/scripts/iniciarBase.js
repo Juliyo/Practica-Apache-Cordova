@@ -3,7 +3,16 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 var dataBase = null;
 var active = null;
 function startDB() {
-            
+    var req = indexedDB.deleteDatabase("monitor");
+    req.onsuccess = function () {
+        console.log("Deleted database successfully");
+    };
+    req.onerror = function () {
+        console.log("Couldn't delete database");
+    };
+    req.onblocked = function () {
+        console.log("Couldn't delete database due to the operation being blocked");
+    };
     dataBase = indexedDB.open("monitor", 1);
                 
     dataBase.onupgradeneeded = function (e) {
@@ -54,7 +63,8 @@ function rellenar() {
     //EstacionesLectoras
     add({ identificadorLector: "1", latitud: "38.384467", longitud: "-0.510654" }, "EstacionesLectoras");
     add({ identificadorLector: "2", latitud: "38.387372", longitud: "-0.517551" }, "EstacionesLectoras");
-    add({ identificadorLector: "3", latitud: "38.387435", longitud: "-0.518074" }, "EstacionesLectoras");
+    add({ identificadorLector: "3", latitud: "38.389278", longitud: "-0.515136" }, "EstacionesLectoras");
+
     //Lecturas
     add({ identificadorIndividuo: "1", identificadorLector: "1", fechaHora: new Date(), latitud: "38.385063", longitud: "-0.511147" }, "Lecturas");
     add({ identificadorIndividuo: "2", identificadorLector: "1", fechaHora: new Date(), latitud: "38.384294", longitud: "-0.511263" }, "Lecturas");

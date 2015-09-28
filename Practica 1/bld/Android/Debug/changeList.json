@@ -101,11 +101,13 @@
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\scripts\\iniciarbase.js"
   ],
-  "deletedFilesIos": [],
+  "deletedFilesIos": [
+    "npm-debug.log"
+  ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "www\\scripts\\iniciarbase.js"
+    "www\\scripts\\mapa.js"
   ],
   "deletedFiles": [],
   "addedPlugins": [],
