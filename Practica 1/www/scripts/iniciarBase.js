@@ -52,20 +52,20 @@ function add(o, tabla) {
 }
 function rellenar() {
     //EstacionesLectoras
-    add({ identificadorLector: "1", longitud: "38.384467", latitud: "-0.510654" }, "EstacionesLectoras");
-    add({ identificadorLector: "2", longitud: "38.387372", latitud: "-0.517551" }, "EstacionesLectoras");
-    add({ identificadorLector: "3", longitud: "38.387435", latitud: "-0.518074" }, "EstacionesLectoras");
+    add({ identificadorLector: "1", latitud: "38.384467", longitud: "-0.510654" }, "EstacionesLectoras");
+    add({ identificadorLector: "2", latitud: "38.387372", longitud: "-0.517551" }, "EstacionesLectoras");
+    add({ identificadorLector: "3", latitud: "38.387435", longitud: "-0.518074" }, "EstacionesLectoras");
     //Lecturas
-    add({ identificadorIndividuo: "1", identificadorLector: "1", fechaHora: new Date(), longitud: "38.385063", latitud: "-0.511147" }, "Lecturas");
-    add({ identificadorIndividuo: "2", identificadorLector: "1", fechaHora: new Date(), longitud: "38.384294", latitud: "-0.511263" }, "Lecturas");
-    add({ identificadorIndividuo: "3", identificadorLector: "1", fechaHora: new Date(), longitud: "38.384010", latitud: "-0.510635" }, "Lecturas");
-    add({ identificadorIndividuo: "4", identificadorLector: "1", fechaHora: new Date(), longitud: "38.384592", latitud: "-0.509825" }, "Lecturas");
-    add({ identificadorIndividuo: "5", identificadorLector: "2", fechaHora: new Date(), longitud: "38.387647", latitud: "-0.518554" }, "Lecturas");
-    add({ identificadorIndividuo: "6", identificadorLector: "2", fechaHora: new Date(), longitud: "38.387821", latitud: "-0.517540" }, "Lecturas");
-    add({ identificadorIndividuo: "7", identificadorLector: "2", fechaHora: new Date(), longitud: "38.387435", latitud: "-0.518074" }, "Lecturas");
-    add({ identificadorIndividuo: "8", identificadorLector: "3", fechaHora: new Date(), longitud: "38.389016", latitud: "-0.515507" }, "Lecturas");
-    add({ identificadorIndividuo: "9", identificadorLector: "3", fechaHora: new Date(), longitud: "38.388785", latitud: "-0.514370" }, "Lecturas");
-    add({ identificadorIndividuo: "10", identificadorLector: "3", fechaHora: new Date(), longitud: "38.388192", latitud: "-0.516151" }, "Lecturas");
+    add({ identificadorIndividuo: "1", identificadorLector: "1", fechaHora: new Date(), latitud: "38.385063", longitud: "-0.511147" }, "Lecturas");
+    add({ identificadorIndividuo: "2", identificadorLector: "1", fechaHora: new Date(), latitud: "38.384294", longitud: "-0.511263" }, "Lecturas");
+    add({ identificadorIndividuo: "3", identificadorLector: "1", fechaHora: new Date(), latitud: "38.384010", longitud: "-0.510635" }, "Lecturas");
+    add({ identificadorIndividuo: "4", identificadorLector: "1", fechaHora: new Date(), latitud: "38.384592", longitud: "-0.509825" }, "Lecturas");
+    add({ identificadorIndividuo: "5", identificadorLector: "2", fechaHora: new Date(), latitud: "38.387647", longitud: "-0.518554" }, "Lecturas");
+    add({ identificadorIndividuo: "6", identificadorLector: "2", fechaHora: new Date(), latitud: "38.387821", longitud: "-0.517540" }, "Lecturas");
+    add({ identificadorIndividuo: "7", identificadorLector: "2", fechaHora: new Date(), latitud: "38.387435", longitud: "-0.518074" }, "Lecturas");
+    add({ identificadorIndividuo: "8", identificadorLector: "3", fechaHora: new Date(), latitud: "38.389016", longitud: "-0.515507" }, "Lecturas");
+    add({ identificadorIndividuo: "9", identificadorLector: "3", fechaHora: new Date(), latitud: "38.388785", longitud: "-0.514370" }, "Lecturas");
+    add({ identificadorIndividuo: "10", identificadorLector: "3", fechaHora: new Date(), latitud: "38.388192", longitud: "-0.516151" }, "Lecturas");
 
 }
             

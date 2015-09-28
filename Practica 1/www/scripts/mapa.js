@@ -1,34 +1,10 @@
 ﻿
 var markers = [];
+var markersLecturas = [];
 var map = null;
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-
-// Adds a marker to the map and push to the array.
-function addMarker(location) {
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map,
-    });
-    markers.push(marker);
-}
-
-// Sets the map on all markers in the array.
-function setMapOnAll(map) {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-    }
-}
-// Removes the markers from the map, but keeps them in the array.
-function clearMarkers() {
-    setMapOnAll(null);
-}
-
-// Shows any markers currently in the array.
-function showMarkers() {
-    setMapOnAll(map);
-}
-
-
+var dataBase = null;
+var active = null;
 function initMap() {
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -42,10 +18,7 @@ function initMap() {
     }
     document.getElementById('Inicio').addEventListener('change', onChangeHandler);
     document.getElementById('Fin').addEventListener('change', onChangeHandler);
-    
-    //Leemos la base de datos
-    cargarMarkers();
-    
+    startBD();
 }
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     directionsService.route({
@@ -60,13 +33,54 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         }
     });
 }
-function cargarMarkers(){
-    var dataBase = indexedDB.open("monitor", "1");
-    alert("Llego");
-    var active = dataBase.result;
 
+
+// Adds a marker to the map and push to the array.
+function addMarker(location) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    
+    markers.push(marker);
+    alert("Marca 1: " + markers[0].position);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+    for (var i = 0; i < markers.length; i++) {
+        
+        markers[i].setMap(map);
+        
+    }
+}
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+    setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+    setMapOnAll(map);
+}
+
+
+
+function startBD(){
+    dataBase = indexedDB.open("monitor", "1");
+    dataBase.onupgradeneeded = function (e) {
+        active = dataBase.result;
+    };
+    dataBase.onsuccess = function (e) {
+        alert('Base de datos cargada correctamente');
+        cargarEstaciones();
+    };
+}
+function cargarEstaciones(){
+    active = dataBase.result;
+    
     var data = active.transaction(["EstacionesLectoras"], "readonly");
-
+    
     var object = data.objectStore("EstacionesLectoras");
     var elements = [];
 
@@ -85,12 +99,18 @@ function cargarMarkers(){
     data.oncomplete = function () {
 
         for (var key in elements) {
-
-            var longitud = { lat: elements[key].latitud, lng: elements[key].longitud };
+            var longitud = new google.maps.LatLng(parseFloat(elements[key].latitud),parseFloat(elements[key].longitud));
             addMarker(longitud);
-
         }
-        showMarkers();
+        setMapOnAll(map);
         elements = [];
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].addListener('click', cargarLecturas(i));
+        }
+
     };
 }
+function cargarLecturas() {
+
+}
+    
