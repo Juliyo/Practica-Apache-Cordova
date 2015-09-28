@@ -51,6 +51,7 @@
     "res\\icons\\ios\\icon-72-2x.png",
     "res\\icons\\ios\\icon-76-2x.png",
     "res\\icons\\ios\\icon-small.png",
+    "www\\images\\key.png",
     "res\\icons\\windows\\Square30x30Logo.scale-100.png",
     "plugins\\cordova-plugin-whitelist\\plugin.xml",
     "build.json",
@@ -98,16 +99,14 @@
     "plugins\\cordova-plugin-whitelist\\src\\ios\\CDVNavigationWhitelistPlugin.m",
     "plugins\\cordova-plugin-whitelist\\README.md",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
-    "res\\screens\\android\\screen-mdpi-portrait.png",
-    "www\\scripts\\iniciarbase.js"
+    "res\\screens\\android\\screen-mdpi-portrait.png"
   ],
-  "deletedFilesIos": [
-    "npm-debug.log"
-  ],
+  "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "www\\scripts\\mapa.js"
+    "www\\scripts\\mapa.js",
+    "www\\mapa.html"
   ],
   "deletedFiles": [],
   "addedPlugins": [],
