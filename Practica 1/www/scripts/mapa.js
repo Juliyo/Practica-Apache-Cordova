@@ -46,6 +46,7 @@ function addMarker(location) {
         map: map,
     });
     markers.push(marker);
+    
     //alert("Marca 1: " + markers[0].position);
 }
 
@@ -103,10 +104,14 @@ function cargarEstaciones(){
         for (var key in elements) {
             var longitud = new google.maps.LatLng(parseFloat(elements[key].latitud),parseFloat(elements[key].longitud));
             addMarker(longitud);
+            var infowindow = new google.maps.InfoWindow({
+                content: "Identificador de la estación: "+elements[key].identificadorLector
+            });
             var id = parseInt(elements[key].identificadorLector);
             //Creamos un listener para la marca y le pasamos el id de esa marca
             google.maps.event.addListener(markers[key], 'click', function (innerkey) {
                 return function () {
+    
                     cargarLecturas(innerkey);
                     map.setZoom(16);
                     map.setCenter(markers[innerkey-1].getPosition());
