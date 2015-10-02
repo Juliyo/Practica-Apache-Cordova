@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
+    <link href="css/crud.css" rel="stylesheet" />
+    <title>Página Principal - Hola Mundo</title>
+</head>
+<body onload="startBD()">
+    <header>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <nav>
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Mapa</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html">Inicio</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <ul class="nav nav-pills nav-justified">
+            <li role="presentation" class="active"><a href="#ver" aria-controls="ver" role="tab" data-toggle="tab" onclick="cargarEstaciones()">Ver estaciones</a></li>
+            <li role="presentation"><a href="#añadir" aria-controls="añadir" role="tab" data-toggle="tab">Añadir estaciones</a></li>
+        </ul>
+        
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="ver">
+                <div>
+                    <table id="tablaEstaciones" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID Estación</th>
+                                <th>Latitud</th>
+                                <th>Longitud</th>
+                            </tr>
+
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="añadir">
+                Aqui se añaden estaciones
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="navbar navbar-default navbar-fixed-bottom">
+            <div class="foot">
+                <div class="crud">
+                    <button class="btn btn-success" role="button" onclick="modificar()">Modificar</button>
+                    <button class="btn btn-danger" role="button">Eliminar</button>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" aria-label="Top"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>
+                    <button type="button" class="btn btn-default" aria-label="Bot"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
+                </div>
+            </div>
+                
+           </div>
+
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Referencia de Cordova que se agrega a la aplicación cuando se compila. -->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+    <script src="scripts/estaciones.js"></script>
+</body>
+</html>

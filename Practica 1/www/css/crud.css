@@ -1,0 +1,38 @@
+﻿main{
+    margin-top:65px;
+    margin-bottom:90px;
+}
+@media (max-width: 768px) {
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-justified > li > a  {
+    border-bottom: 1px solid #ddd !important;
+    border-radius: 4px 4px 0 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+#tablaEstaciones tbody tr{
+    opacity:0;
+    -webkit-transition: all 0.25s ease-in;
+    -moz-transition: all 0.25s ease-in;
+    -o-transition: all 0.25s ease-in;
+}
+#tablaEstaciones tbody tr.load{
+    opacity:1;
+}
+.table-striped{
+    background-color:#f1f1f1;
+}
+.foot{
+    margin-top:13px;
+}
+.crud{
+    float:left;
+    margin:5px;
+}
+.btn-group{
+    float:right;
+    margin:5px;
+}

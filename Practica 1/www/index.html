@@ -38,6 +38,22 @@
                 <div class="row">
                     <div class="center-block">
                         <div class="boton center-block">
+                            <a class="btn btn-primary" href="estaciones.html" role="button">Estaciones Lectoras</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="center-block">
+                        <div class="boton center-block">
+                            <a class="btn btn-primary" href="lecturas.html" role="button">Lecturas</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="center-block">
+                        <div class="boton center-block">
                             <a class="btn btn-primary" href="acercade.html" role="button">Acerca de</a>
                         </div>
                     </div>
@@ -52,23 +68,23 @@
         function onload() {
             if (window.orientation == 0) // Portrait
             {
-                $(".menu").css({ "padding-top": "45%" });
+                $(".menu").css({ "padding-top": "40%" });
                 $(".fondo-2").css({ "background-position": "-300px -65px" });
             }
             else // Landscape
             {
-                $(".menu").css({ "padding-top": "13%" });
+                $(".menu").css({ "padding-top": "3%" });
                 $(".fondo-2").css({ "background-position": "-130px -65px" });
             }
             $(window).on("orientationchange", function () {
                 if (window.orientation == 0) // Portrait
                 {
-                    $(".menu").css({ "padding-top": "45%" });
+                    $(".menu").css({ "padding-top": "40%" });
                     $(".fondo-2").css({ "background-position": "-300px -65px" });
                 }
                 else // Landscape
                 {
-                    $(".menu").css({ "padding-top": "13%" });
+                    $(".menu").css({ "padding-top": "3%" });
                     $(".fondo-2").css({ "background-position": "-130px -65px" });
                 }
             });
