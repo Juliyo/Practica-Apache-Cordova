@@ -22,14 +22,10 @@
 #tablaEstaciones tbody tr.load{
     opacity:1;
 }
-.table-striped{
-    background-color:#f1f1f1;
-}
 .foot{
-    margin-top:13px;
+    margin-top:11px;
 }
 .crud{
-    float:left;
     margin:5px;
 }
 .btn-group{

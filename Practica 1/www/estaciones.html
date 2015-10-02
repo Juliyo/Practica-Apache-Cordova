@@ -43,7 +43,7 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="ver">
                 <div>
-                    <table id="tablaEstaciones" class="table table-bordered table-striped">
+                    <table id="tablaEstaciones" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -66,13 +66,12 @@
         <div class="navbar navbar-default navbar-fixed-bottom">
             <div class="foot">
                 <div class="crud">
-                    <button class="btn btn-success" role="button" onclick="modificar()">Modificar</button>
+                    <button class="btn btn-success" id="modificar" role="button">Modificar</button>
                     <button class="btn btn-danger" role="button">Eliminar</button>
                 </div>
-
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" aria-label="Top"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></button>
-                    <button type="button" class="btn btn-default" aria-label="Bot"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
+                <div class="crud2" style="display:none;">
+                    <button class="btn btn-success" id="aceptar" role="button">Aceptar</button>
+                    <button class="btn btn-warning" id="cancelar" role="button">Cancelar</button>
                 </div>
             </div>
                 

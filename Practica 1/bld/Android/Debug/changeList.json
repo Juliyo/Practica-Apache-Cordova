@@ -14,11 +14,13 @@
     "res\\icons\\android\\icon-48-mdpi.png",
     "res\\icons\\ios\\icon-72.png",
     "res\\icons\\ios\\icon-76.png",
+    "www\\lecturas.html",
     "plugins\\cordova-plugin-whitelist\\doc\\ja\\README.md",
     "res\\screens\\ios\\screen-ipad-portrait-2x.png",
     "plugins\\cordova-plugin-whitelist\\NOTICE",
     "www\\scripts\\mapa.js",
     "res\\screens\\ios\\screen-iphone-portrait-2x.png",
+    "www\\estaciones.html",
     "res\\icons\\windows\\Square71x71Logo.scale-240.png",
     "merges\\android\\scripts\\platformOverrides.js",
     "plugins\\cordova-plugin-whitelist\\src\\android\\WhitelistPlugin.java",
@@ -43,6 +45,7 @@
     "plugins\\cordova-plugin-whitelist\\doc\\pl\\README.md",
     "res\\screens\\ios\\screen-iphone-568h-2x.png",
     "res\\icons\\windows\\Square150x150Logo.scale-100.png",
+    "www\\scripts\\estaciones.js",
     "plugins\\cordova-plugin-whitelist\\doc\\fr\\README.md",
     "package.json",
     "res\\screens\\android\\screen-ldpi-landscape.png",
@@ -50,6 +53,7 @@
     "res\\icons\\windows\\Wide310x150Logo.scale-100.png",
     "res\\icons\\ios\\icon-72-2x.png",
     "res\\icons\\ios\\icon-76-2x.png",
+    "www\\css\\crud.css",
     "res\\icons\\ios\\icon-small.png",
     "www\\images\\key.png",
     "res\\icons\\windows\\Square30x30Logo.scale-100.png",
@@ -100,17 +104,15 @@
     "plugins\\cordova-plugin-whitelist\\src\\ios\\CDVNavigationWhitelistPlugin.m",
     "plugins\\cordova-plugin-whitelist\\README.md",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
-    "res\\screens\\android\\screen-mdpi-portrait.png",
-    "www\\estaciones.html",
-    "www\\lecturas.html",
-    "www\\scripts\\estaciones.js",
-    "www\\css\\crud.css"
+    "res\\screens\\android\\screen-mdpi-portrait.png"
   ],
-  "deletedFilesIos": [],
+  "deletedFilesIos": [
+    "npm-debug.log"
+  ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
-    "www\\css\\crud.css"
+    "www\\scripts\\estaciones.js"
   ],
   "deletedFiles": [],
   "addedPlugins": [],
