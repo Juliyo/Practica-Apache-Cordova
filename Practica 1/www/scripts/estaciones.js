@@ -75,6 +75,16 @@ function generateHtml() {
 function fade(objeto) {
     $(objeto).addClass("load");
 }
+$("#añadir").click(function (e) {
+    $("#footer").css({ "display": "none" });
+    
+});
+$("#ver").click(function (e) {
+    $("#footer").css({ "display": "" });
+    $(".crud2").css({ "display": "none" });
+    $(".crud").css({ "display": "" });
+    cargarEstaciones();
+});
 //Cuando el usuario pulse en el boton modificar
 $("#modificar").click(function (e) {
     var encontrado = false;
@@ -88,11 +98,16 @@ $("#modificar").click(function (e) {
     });
     $("#tablaEstaciones tbody tr").each(function (fila, obj) {
         if (fila == f) {
-            var html = '<td><input type="checkbox" checked></td><th scope="row"><input class="form-control" type="text"></th><td><input class="form-control" type="text"></td><td><input class="form-control" type="text"></td>';
+            var html = '<td><input type="checkbox" checked></td><th scope="row"><input class="form-control" type="text" value="';
+            html = html + estaciones[fila].identificadorLector + '"></th><td><input class="form-control" type="text" value="';
+            html = html + estaciones[fila].latitud + '"></th><td><input class="form-control" type="text" value="';
+            html = html + estaciones[fila].longitud + '"></td>';
             $(this).empty();
             $(this).append(html);
             $(".crud2").css({ "display": "" });
             $(".crud").css({ "display": "none" });
+            
+            
             $("#aceptar").click(function (e) {
                 modificar(fila);
             });

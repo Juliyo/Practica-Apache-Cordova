@@ -36,8 +36,8 @@
     </header>
     <main>
         <ul class="nav nav-pills nav-justified">
-            <li role="presentation" class="active"><a href="#ver" aria-controls="ver" role="tab" data-toggle="tab" onclick="cargarEstaciones()">Ver estaciones</a></li>
-            <li role="presentation"><a href="#añadir" aria-controls="añadir" role="tab" data-toggle="tab">Añadir estaciones</a></li>
+            <li role="presentation" class="active"><a href="#ver" id="ver" aria-controls="ver" role="tab" data-toggle="tab">Ver estaciones</a></li>
+            <li role="presentation"><a href="#añadir" id="añadir" aria-controls="añadir" role="tab" data-toggle="tab">Añadir estaciones</a></li>
         </ul>
         
         <div class="tab-content">
@@ -63,7 +63,7 @@
         </div>
     </main>
     <footer>
-        <div class="navbar navbar-default navbar-fixed-bottom">
+        <div id="footer" class="navbar navbar-default navbar-fixed-bottom">
             <div class="foot">
                 <div class="crud">
                     <button class="btn btn-success" id="modificar" role="button">Modificar</button>

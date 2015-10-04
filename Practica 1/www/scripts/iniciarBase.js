@@ -3,7 +3,7 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 var dataBase = null;
 var active = null;
 function startDB() {
-    var req = indexedDB.deleteDatabase("monitor");
+    /*var req = indexedDB.deleteDatabase("monitor");
     req.onsuccess = function () {
         console.log("Deleted database successfully");
     };
@@ -12,18 +12,18 @@ function startDB() {
     };
     req.onblocked = function () {
         console.log("Couldn't delete database due to the operation being blocked");
-    };
+    };*/
     dataBase = indexedDB.open("monitor", 1);
                 
     dataBase.onupgradeneeded = function (e) {
         active = dataBase.result;
         //active.deleteObjectStore("EstacionesLectoras");
         //active.deleteObjectStore("Lecturas");
-        object1 = active.createObjectStore("EstacionesLectoras", { keyPath : 'identificadorLector', autoIncrement : false });
+        var object1 = active.createObjectStore("EstacionesLectoras", { keyPath : 'identificadorLector', autoIncrement : false });
         object1.createIndex('by_longitud', 'longitud', { unique : false });
         object1.createIndex('by_latitud', 'latitud', { unique: false });
 
-        object2 = active.createObjectStore("Lecturas", { keyPath: 'identificadorIndividuo', autoIncrement: false });
+        var object2 = active.createObjectStore("Lecturas", { keyPath: 'identificadorIndividuo', autoIncrement: false });
         object2.createIndex('by_identificadorLector', 'identificadorLector', { unique: false });
         object2.createIndex('by_fechaHora', 'fechaHora', { unique: false });
         object2.createIndex('by_longitud', 'longitud', { unique: false });
@@ -33,6 +33,7 @@ function startDB() {
 
     dataBase.onsuccess = function (e) {
         alert('Base de datos cargada correctamente');
+        active = dataBase.result;
         rellenar();
     };
         
@@ -41,16 +42,30 @@ function startDB() {
     };
 }
 function add(o, tabla) {
-    active = dataBase.result;
+    
     var data = active.transaction(["EstacionesLectoras", "Lecturas"], "readwrite");
     var request = null;
     var estacion = null;
     if (tabla.localeCompare("EstacionesLectoras")==0) {
         estacion = data.objectStore("EstacionesLectoras");
-        request = estacion.put(o);
+        request = estacion.add(o);
+        request.onsuccess = function (e) {
+            console.log("Add 'person' successful! person=" + JSON.stringify(o));
+        };
+
+        request.onerror = function (e) {
+            console.log("Add error", e.target.error.name);
+        };
     }else if(tabla.localeCompare("Lecturas")==0){
         estacion = data.objectStore("Lecturas");
-        request = estacion.put(o);
+        request = estacion.add(o);
+        request.onsuccess = function (e) {
+            console.log("Add 'person' successful! person=" + JSON.stringify(o));
+        };
+
+        request.onerror = function (e) {
+            console.log("Add error", e.target.error.name);
+        };
     }
 
     data.oncomplete = function (e) {
