@@ -36,8 +36,8 @@
     </header>
     <main>
         <ul class="nav nav-pills nav-justified">
-            <li role="presentation" class="active"><a href="#ver" id="ver" aria-controls="ver" role="tab" data-toggle="tab">Ver estaciones</a></li>
-            <li role="presentation"><a href="#añadir" id="añadir" aria-controls="añadir" role="tab" data-toggle="tab">Añadir estaciones</a></li>
+            <li role="presentation" class="active"><a href="#ver" id="clickVer" aria-controls="ver" role="tab" data-toggle="tab">Ver estaciones</a></li>
+            <li role="presentation"><a href="#añadir" id="clickAdd" aria-controls="añadir" role="tab" data-toggle="tab">Añadir estaciones</a></li>
         </ul>
         
         <div class="tab-content">
@@ -58,7 +58,22 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="añadir">
-                Aqui se añaden estaciones
+                <form action="JavaScript:addEstacion()">
+                    <div class="form-group">
+                        <label for="id">IdentificadorLector</label>
+                        <input type="text" class="form-control" id="id" placeholder="Identificador Lector">
+                    </div>
+                    <div class="form-group">
+                        <label for="lat">Latitud</label>
+                        <input type="text" class="form-control" id="lat" placeholder="Latitud">
+                    </div>
+                    <div class="form-group">
+                        <label for="lon">Longitud</label>
+                        <input type="text" class="form-control" id="lon" placeholder="Longitud">
+                    </div>
+                    
+                    <button type="submit" id="add" class="btn btn-default">Añadir estación</button>
+                </form>
             </div>
         </div>
     </main>
@@ -67,7 +82,7 @@
             <div class="foot">
                 <div class="crud">
                     <button class="btn btn-success" id="modificar" role="button">Modificar</button>
-                    <button class="btn btn-danger" role="button">Eliminar</button>
+                    <button class="btn btn-danger" id="eliminar" role="button">Eliminar</button>
                 </div>
                 <div class="crud2" style="display:none;">
                     <button class="btn btn-success" id="aceptar" role="button">Aceptar</button>
@@ -84,5 +99,6 @@
     <script src="cordova.js"></script>
     <script src="scripts/platformOverrides.js"></script>
     <script src="scripts/estaciones.js"></script>
+    <script src="scripts/iniciarBase.js"></script>
 </body>
 </html>

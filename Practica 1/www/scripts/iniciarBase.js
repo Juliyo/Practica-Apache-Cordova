@@ -2,6 +2,7 @@
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 var dataBase = null;
 var active = null;
+var relleno= false;
 function startDB() {
     /*var req = indexedDB.deleteDatabase("monitor");
     req.onsuccess = function () {
@@ -14,8 +15,9 @@ function startDB() {
         console.log("Couldn't delete database due to the operation being blocked");
     };*/
     dataBase = indexedDB.open("monitor", 1);
-                
+    
     dataBase.onupgradeneeded = function (e) {
+        relleno = true;
         active = dataBase.result;
         //active.deleteObjectStore("EstacionesLectoras");
         //active.deleteObjectStore("Lecturas");
@@ -34,7 +36,10 @@ function startDB() {
     dataBase.onsuccess = function (e) {
         alert('Base de datos cargada correctamente');
         active = dataBase.result;
-        rellenar();
+        if (relleno == true) {
+            rellenar();
+        }
+        relleno = false;
     };
         
     dataBase.onerror = function (e)  {

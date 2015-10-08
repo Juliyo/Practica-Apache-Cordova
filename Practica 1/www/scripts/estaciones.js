@@ -59,7 +59,7 @@ function generateHtml() {
         html = html + '<tr><td><input type="checkbox" ></td><th scope="row">' + estaciones[i].identificadorLector + '</th><td>' + estaciones[i].latitud + '</td><td>' + estaciones[i].longitud + '</td></tr>';
 
     }
-    $('#tablaEstaciones tbody').append(html);
+    $("#tablaEstaciones tbody").append(html);
 
     var offset = 0;
     $("#tablaEstaciones tbody tr").each(function (fila, obj) {
@@ -75,11 +75,11 @@ function generateHtml() {
 function fade(objeto) {
     $(objeto).addClass("load");
 }
-$("#añadir").click(function (e) {
+$("#clickAdd").click(function (e) {
     $("#footer").css({ "display": "none" });
     
 });
-$("#ver").click(function (e) {
+$("#clickVer").click(function (e) {
     $("#footer").css({ "display": "" });
     $(".crud2").css({ "display": "none" });
     $(".crud").css({ "display": "" });
@@ -124,6 +124,17 @@ $("#modificar").click(function (e) {
         }
     });
 });
+$("#eliminar").click(function (e) {
+    var f;
+    //Vemos que fila esta marcada con check
+    $("input[type=checkbox]").each(function (fila, obj) {
+        if ($(this).is(":checked")) {
+                eliminar(estaciones[fila].identificadorLector);
+        }
+    });
+    cargarEstaciones();
+    
+});
 function modificar(fila) {
    
     active = dataBase.result;
@@ -159,4 +170,28 @@ function modificar(fila) {
     $(".crud").css({ "display": "" });
     cargarEstaciones();
     
+}
+function eliminar(key) {
+    active = dataBase.result;
+    var data = active.transaction(["EstacionesLectoras"], "readwrite");
+    var store = data.objectStore("EstacionesLectoras");
+
+    var request = store.delete(key);
+    //var request = store.clear(); // delete all from the store
+
+    request.onsuccess = function (e) {
+        // calls even when nothing to remove.
+        console.log("removeByKey success!");
+    };
+
+    request.onerror = function (e) {
+        console.log("removeByKey error!");
+    };
+}
+function addEstacion() {
+    var id = $("#id").val();
+    var lat = $("#lat").val();
+    var lon = $("#lon").val();
+    add({ identificadorLector: id, latitud: lat, longitud: lon }, "EstacionesLectoras");
+    $('#ver').tab('show');
 }
