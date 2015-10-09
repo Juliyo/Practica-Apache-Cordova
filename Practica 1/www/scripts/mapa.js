@@ -1,13 +1,14 @@
 ﻿
-//Array para guardar en el todas las estaciones
-var markers = [];
-//Array para guardar de forma temparal las lecturas
-var markersLecturas = [];
+var markers = [];               //Array para guardar en el todos los 
+var infoEstaciones = [];        //markers de estaciones y su infowindow
+var markersLecturas = [];       //Array para guardar en el todos los markers de estaciones y su infowindow
+
 var imageLect = "images/key.png";
 var map = null;
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 var dataBase = null;
 var active = null;
+var tipo = "indexed";       //Variable que indica si usamos base de datos local o externa
 function initMap() {
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -37,8 +38,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         }
     });
 }
-
-
 // Adds a marker to the map and push to the array.
 function addMarker(location) {
     var marker = new google.maps.Marker({
@@ -46,29 +45,22 @@ function addMarker(location) {
         map: map,
     });
     markers.push(marker);
-    
-    //alert("Marca 1: " + markers[0].position);
 }
-
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
     for (var i = 0; i < markers.length; i++) {
-        
         markers[i].setMap(map);
-        
     }
-
 }
 // Removes the markers from the map, but keeps them in the array.
 function clearMarkers() {
     setMapOnAll(null);
 }
-
 // Shows any markers currently in the array.
 function showMarkers() {
     setMapOnAll(map);
 }
-
+/*Iniciamos la base de datos y cargamos las estaciones*/
 function startBD(){
     dataBase = indexedDB.open("monitor", "1");
     dataBase.onupgradeneeded = function (e) {
@@ -79,9 +71,18 @@ function startBD(){
         cargarEstaciones();
     };
 }
-//Este metodo se encarga de leer la base de datos y mostrar las Estaciones en el mapa, además de añadir un 
-//listener on click para cada marca.
+/*Este metodo se encarga de hacer una llamada para cargar en local
+o en la api rest*/
 function cargarEstaciones(){
+    if (tipo.localeCompare("indexed") == 0) {
+        estacionesIndexedDB();
+    } else {
+
+    }
+}
+/*Este metodo se encarga de leer la base de datos local y al terminar llamar a markersEstaciones 
+pasandole un array de estaciones*/
+function estacionesIndexedDB(){
     active = dataBase.result;
     var data = active.transaction(["EstacionesLectoras"], "readonly");
     var object = data.objectStore("EstacionesLectoras");
@@ -101,33 +102,37 @@ function cargarEstaciones(){
     };
     data.oncomplete = function () {
 
-        for (var key in elements) {
-            var longitud = new google.maps.LatLng(parseFloat(elements[key].latitud),parseFloat(elements[key].longitud));
-            addMarker(longitud);
-            var infowindow = new google.maps.InfoWindow({
-                content: "Identificador de la estación: "+elements[key].identificadorLector
-            });
-            var id = parseInt(elements[key].identificadorLector);
-            //Creamos un listener para la marca y le pasamos el id de esa marca
-            google.maps.event.addListener(markers[key], 'click', function (innerkey) {
-                return function () {
-    
-                    cargarLecturas(innerkey);
-                    map.setZoom(16);
-                    map.setCenter(markers[innerkey-1].getPosition());
-                }
-            }(id));
-        }
-        /*for (var key in elements) {
-            markers[key].addListener('click', cargarLecturas);
-            
-        }*/
-        setMapOnAll(map);
+        markersEstaciones(elements);
         elements = [];
 
     };
 }
-//Este metodo se encarga de leer la bbdd y de cargar en el mapa las lecturas cuyo identificadorLector es id
+/*Este metodo se encarga de mostrar en el mapa las estaciones recibidas por parámetro, además de añadir un 
+listener on click para cada estación.*/
+function markersEstaciones(elements) {
+    for (var key in elements) {
+        var longitud = new google.maps.LatLng(parseFloat(elements[key].latitud), parseFloat(elements[key].longitud));
+        addMarker(longitud);
+        var infowindow = new google.maps.InfoWindow({
+            content: "Identificador de la estación: " + elements[key].identificadorLector
+        });
+        infoEstaciones.push(infowindow);
+        var id = parseInt(elements[key].identificadorLector);
+        //Creamos un listener para la marca y le pasamos el id de esa marca
+        google.maps.event.addListener(markers[key], 'click', function (innerkey) {
+            return function () {
+                infoEstaciones[innerkey - 1].open(map, markers[innerkey - 1]);
+                setTimeout(function () { infoEstaciones[innerkey-1].close(); }, '2000');
+                cargarLecturas(innerkey);       /*Llamamos a cargarLecturas para que muestre en el mapa las lecturas de las estacion con id innerkey*/
+                map.setZoom(16);
+                map.setCenter(markers[innerkey - 1].getPosition());
+            }
+        }(id));
+    }
+    setMapOnAll(map);
+}
+/*Este metodo se encarga de hacer una llamada para cargar en local
+o en la api rest*/
 function cargarLecturas(id) {
     //Cuando se llama a este metodo hay que limpiar primero el mapa de lecturas
     for (var i = 0; i < markersLecturas.length; i++) {
@@ -142,6 +147,16 @@ function cargarLecturas(id) {
     //Añadimos las marcas de estaciones
     showMarkers();
     //Ahora añadimos las lecturas de la estacion con id pasado por parametro
+    if (tipo.localeCompare("indexed") == 0) {
+        lecturasIndexedDB(id);
+    } else {
+
+    }
+    
+}
+/*Este metodo se encarga de leer la base de datos local y al terminar llamar a addMarkersLecturas 
+pasandole un array de lecturas*/
+function lecturasIndexedDB(id) {
     active = dataBase.result;
     var data = active.transaction(["Lecturas"], "readonly");
     var object = data.objectStore("Lecturas");
@@ -154,35 +169,39 @@ function cargarLecturas(id) {
             return;
         }
         //Guardamos los objetos en el array elements
-        elements.push(result.value);
+        if (parseInt(result.value.identificadorLector) == id) {
+            elements.push(result.value);
+        }
+
         result.continue();
 
     };
     data.oncomplete = function () {
-        for (var key in elements) {
-            if(parseInt(elements[key].identificadorLector)==id){
-                var longitud = new google.maps.LatLng(parseFloat(elements[key].latitud), parseFloat(elements[key].longitud));
-                var marker = new google.maps.Marker({
-                    position: longitud,
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    icon: imageLect
-                });
+        addMarkersLecturas(elements);
 
-                markersLecturas.push(marker);
-                
-            }
-            
-        }
-        //Añadimos las marcas al mapa
-        for (var i = 0; i < markersLecturas.length; i++) {
-        
-            markersLecturas[i].setMap(map);
-        
-        }
         elements = [];
 
 
     };
+}
+/*Este metodo se encarga de mostrar en el mapa las lecturas recibidas por parámetro*/
+function addMarkersLecturas(elements) {
+    for (var key in elements) {
+        var longitud = new google.maps.LatLng(parseFloat(elements[key].latitud), parseFloat(elements[key].longitud));
+        var marker = new google.maps.Marker({
+            position: longitud,
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: imageLect
+        });
+
+        markersLecturas.push(marker);
+    }
+    //Añadimos las marcas al mapa
+    for (var i = 0; i < markersLecturas.length; i++) {
+
+        markersLecturas[i].setMap(map);
+
+    }
 }
     

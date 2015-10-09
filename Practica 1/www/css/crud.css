@@ -22,6 +22,20 @@
 #tablaEstaciones tbody tr.load{
     opacity:1;
 }
+#tablaLecturas tbody tr{
+    font-size:0.8em;
+    opacity:0;
+    -webkit-transition: all 0.25s ease-in;
+    -moz-transition: all 0.25s ease-in;
+    -o-transition: all 0.25s ease-in;
+}
+#tablaLecturas tbody tr.load{
+    opacity:1;
+}
+#tablaLecturas thead  th{
+    font-size:0.8em;
+}
+
 .foot{
     margin-top:11px;
 }

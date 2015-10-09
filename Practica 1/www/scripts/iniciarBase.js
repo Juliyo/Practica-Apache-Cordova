@@ -46,6 +46,9 @@ function startDB() {
         alert('Error cargando la base de datos');
     };
 }
+
+/*Añade a la base de datos el objeto pasado como parámetro a la tabla especificada en 
+el parámetro tabla*/
 function add(o, tabla) {
     
     var data = active.transaction(["EstacionesLectoras", "Lecturas"], "readwrite");
@@ -60,6 +63,7 @@ function add(o, tabla) {
 
         request.onerror = function (e) {
             console.log("Add error", e.target.error.name);
+            alert("Estación repetida!!!!");
         };
     }else if(tabla.localeCompare("Lecturas")==0){
         estacion = data.objectStore("Lecturas");
@@ -70,6 +74,7 @@ function add(o, tabla) {
 
         request.onerror = function (e) {
             console.log("Add error", e.target.error.name);
+            alert("Lectura repetida!!!!");
         };
     }
 
@@ -79,6 +84,8 @@ function add(o, tabla) {
 
 
 }
+/*Rellena la base de datos inicialmente con unos valores por defecto, a este método solo se le
+llama cuando se crea la base de datos*/
 function rellenar() {
     //EstacionesLectoras
     add({ identificadorLector: "1", latitud: "38.384467", longitud: "-0.510654" }, "EstacionesLectoras");
