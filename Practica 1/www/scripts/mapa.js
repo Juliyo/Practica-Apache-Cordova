@@ -8,7 +8,7 @@ var map = null;
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 var dataBase = null;
 var active = null;
-var tipo = "indexed";       //Variable que indica si usamos base de datos local o externa
+var tipo = document.cookie;       //Variable que indica si usamos base de datos local o api
 function initMap() {
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -23,7 +23,11 @@ function initMap() {
     document.getElementById('Inicio').addEventListener('change', onChangeHandler);
     document.getElementById('Fin').addEventListener('change', onChangeHandler);
     //Cargamos la base de datos para situar las marcas en el mapa
-    startBD();
+    if (tipo.localeCompare("db") == 0) {
+        startDB();
+    } else {
+        cargarEstaciones();
+    }
 }
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     directionsService.route({
@@ -74,11 +78,20 @@ function startBD(){
 /*Este metodo se encarga de hacer una llamada para cargar en local
 o en la api rest*/
 function cargarEstaciones(){
-    if (tipo.localeCompare("indexed") == 0) {
+    if (tipo.localeCompare("db") == 0) {
         estacionesIndexedDB();
     } else {
-
+        estacionesApi();
     }
+}
+
+/*En este metodo realizaremos una llamada GET a la api rest que nos delvolverá todas las estaciones de la bbdd,
+llamaremos a markersEstaciones y le pasaremos el objeto obtenido*/
+function estacionesApi() {
+    $.getJSON("http://localhost:3000/estaciones", function (data) {
+        markersEstaciones(data);
+    });
+    
 }
 /*Este metodo se encarga de leer la base de datos local y al terminar llamar a markersEstaciones 
 pasandole un array de estaciones*/
@@ -147,10 +160,10 @@ function cargarLecturas(id) {
     //Añadimos las marcas de estaciones
     showMarkers();
     //Ahora añadimos las lecturas de la estacion con id pasado por parametro
-    if (tipo.localeCompare("indexed") == 0) {
+    if (tipo.localeCompare("db") == 0) {
         lecturasIndexedDB(id);
     } else {
-
+        lecturasApi();
     }
     
 }

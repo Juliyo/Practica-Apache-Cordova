@@ -15,6 +15,7 @@
     "res\\icons\\ios\\icon-72.png",
     "res\\icons\\ios\\icon-76.png",
     "www\\lecturas.html",
+    "www\\scripts\\lecturas.js",
     "plugins\\cordova-plugin-whitelist\\doc\\ja\\README.md",
     "res\\screens\\ios\\screen-ipad-portrait-2x.png",
     "plugins\\cordova-plugin-whitelist\\NOTICE",
@@ -25,6 +26,7 @@
     "merges\\android\\scripts\\platformOverrides.js",
     "plugins\\cordova-plugin-whitelist\\src\\android\\WhitelistPlugin.java",
     "www\\css\\mapa.css",
+    "www\\scripts\\jquery-dateFormat.js",
     "www\\mapa.html",
     "res\\screens\\android\\screen-hdpi-portrait.png",
     "www\\css\\index.css",
@@ -104,26 +106,16 @@
     "plugins\\cordova-plugin-whitelist\\src\\ios\\CDVNavigationWhitelistPlugin.m",
     "plugins\\cordova-plugin-whitelist\\README.md",
     "res\\icons\\windows\\Square44x44Logo.scale-240.png",
-    "res\\screens\\android\\screen-mdpi-portrait.png",
-    "www\\scripts\\iniciarbase.js",
-    "www\\scripts\\lecturas.js",
-    "www\\scripts\\jquery-dateFormat.js",
-    "node_modules\\mongoose\\node_modules\\mongodb\\node_modules\\bson\\builderror.log"
+    "res\\screens\\android\\screen-mdpi-portrait.png"
   ],
   "deletedFilesIos": [
     "npm-debug.log",
-    "www\\app.js",
-    "app.js"
+    "www\\scripts\\cookies.js"
   ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
-  "changedFiles": [
-    "package.json"
-  ],
-  "deletedFiles": [
-    "www\\app.js",
-    "app.js"
-  ],
+  "changedFiles": [],
+  "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []
 }
