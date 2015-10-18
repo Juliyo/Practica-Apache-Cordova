@@ -2,7 +2,7 @@
 var dataBase = null;
 var active = null;
 var lecturas = [];
-var tipo = "indexed";
+var tipo = document.cookie;       //Variable que indica si usamos base de datos local o api
 
 //Iniciamos la base de datos y llamamos a cargar lecturas
 function startBD() {
@@ -73,7 +73,7 @@ $("#modificar").click(function (e) {
     $("#tablaLecturas tbody tr").each(function (fila, obj) {
         if (fila == f) {
             var html = '<td><input type="checkbox" checked></td><th scope="row"><input class="form-control" type="text" style="font-size:0.8em;" value="';
-            html = html + lecturas[fila].identificadorIndividuo + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
+            html = html + lecturas[fila].identificadorIndividuo + '"></th><td><input class="form-control" disabled type="text" style="font-size:0.8em;" value="';
             html = html + lecturas[fila].identificadorLector + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
             html = html + $.format.date(lecturas[fila].fechaHora, 'dd/mm/yy H:mm:ss') + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
             html = html + lecturas[fila].latitud + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
@@ -118,11 +118,22 @@ $("#eliminar").click(function (e) {
 });
 
 function cargarLecturas() {
-    if (tipo.localeCompare("indexed") == 0) {
+    if (tipo.localeCompare("db") == 0) {
         lecturasIndexedDB();
     } else {
-
+        lecturasApi();
     }
+}
+function lecturasApi() {
+    lecturas = [];
+    $.getJSON("http://localhost:3000/lecturas", function (data) {
+        for (var key in data) {
+            lecturas.push(data[key]);
+            //alert(JSON.stringify(elements[key]));
+        }
+        generateHtml();
+    });
+    
 }
 //Cargamos las lecturas abriendo una transaccion con la base de datos y guardamos los resultados en elements
 function lecturasIndexedDB() {
@@ -161,14 +172,27 @@ function lecturasIndexedDB() {
 
 function modificar(id, datos) {
 
-    if (tipo.localeCompare("indexed") == 0) {
+    if (tipo.localeCompare("db") == 0) {
         $(".crud2").css({ "display": "none" });
         $(".crud").css({ "display": "" });
         modificarIndexedDB(id, datos);
         cargarLecturas();
     } else {
-
+        $(".crud2").css({ "display": "none" });
+        $(".crud").css({ "display": "" });
+        modificarApi(id, datos);
+        
     }
+}
+function modificarApi(id,datos) {
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:3000/lecturas/"+id,
+        data: datos,
+        success: function (response) {
+            cargarLecturas();
+        }
+    });
 }
 function modificarIndexedDB(id, datos) {
     active = dataBase.result;

@@ -2,7 +2,9 @@
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 var dataBase = null;
 var active = null;
-var relleno= false;
+var relleno = false;
+/*Cuando se inicia la aplicación siempre se llamará a este método porque asi siempre rellenaremos
+la base de datos, aunque luego se use apirest*/
 function startDB() {
     /*var req = indexedDB.deleteDatabase("monitor");
     req.onsuccess = function () {

@@ -24,7 +24,7 @@ function initMap() {
     document.getElementById('Fin').addEventListener('change', onChangeHandler);
     //Cargamos la base de datos para situar las marcas en el mapa
     if (tipo.localeCompare("db") == 0) {
-        startDB();
+        startBD();
     } else {
         cargarEstaciones();
     }
@@ -135,7 +135,7 @@ function markersEstaciones(elements) {
         google.maps.event.addListener(markers[key], 'click', function (innerkey) {
             return function () {
                 infoEstaciones[innerkey - 1].open(map, markers[innerkey - 1]);
-                setTimeout(function () { infoEstaciones[innerkey-1].close(); }, '2000');
+                setTimeout(function () { infoEstaciones[innerkey-1].close(); }, '1000');
                 cargarLecturas(innerkey);       /*Llamamos a cargarLecturas para que muestre en el mapa las lecturas de las estacion con id innerkey*/
                 map.setZoom(16);
                 map.setCenter(markers[innerkey - 1].getPosition());
@@ -163,9 +163,14 @@ function cargarLecturas(id) {
     if (tipo.localeCompare("db") == 0) {
         lecturasIndexedDB(id);
     } else {
-        lecturasApi();
+        lecturasApi(id);
     }
     
+}
+function lecturasApi(id) {
+    $.getJSON("http://localhost:3000/lecturas/"+id, function (data) {
+        addMarkersLecturas(data);
+    });
 }
 /*Este metodo se encarga de leer la base de datos local y al terminar llamar a addMarkersLecturas 
 pasandole un array de lecturas*/

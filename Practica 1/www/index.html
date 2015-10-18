@@ -30,9 +30,8 @@
                             <li>
                                 <div class="form-group">
                                     <select id="tipo" class="form-control">
-                                        <option value="" disabled selected>Tipo</option>
-                                        <option value="api">API Rest</option>
                                         <option value="db">IndexedDB</option>
+                                        <option value="api">API Rest</option>
                                     </select>
                                 </div>
                             </li>
@@ -120,6 +119,16 @@
     <script src="scripts/iniciarBase.js"></script>
     <script src="scripts/platformOverrides.js"></script>
     <script>
+        if (document.cookie == null) {
+            var tipo = $("#tipo").val();
+            document.cookie = tipo;
+        }
+        if (document.cookie.localeCompare("db") == 0) {
+            $("#tipo").val("db");
+        } else {
+            $("#tipo").val("api");
+        }
+        
         $("#tipo").change(function () {
             var tipo = $("#tipo").val();
             document.cookie = tipo;

@@ -109,12 +109,13 @@
     "res\\screens\\android\\screen-mdpi-portrait.png"
   ],
   "deletedFilesIos": [
-    "npm-debug.log",
-    "www\\scripts\\cookies.js"
+    "npm-debug.log"
   ],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
-  "changedFiles": [],
+  "changedFiles": [
+    "www\\scripts\\lecturas.js"
+  ],
   "deletedFiles": [],
   "addedPlugins": [],
   "deletedPlugins": []
