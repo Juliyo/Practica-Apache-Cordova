@@ -106,5 +106,6 @@ function rellenar() {
     add({ identificadorIndividuo: "9", identificadorLector: "3", fechaHora: $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), latitud: "38.388785", longitud: "-0.514370" }, "Lecturas");
     add({ identificadorIndividuo: "10", identificadorLector: "3", fechaHora: $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), latitud: "38.388192", longitud: "-0.516151" }, "Lecturas");
 
+
 }
             

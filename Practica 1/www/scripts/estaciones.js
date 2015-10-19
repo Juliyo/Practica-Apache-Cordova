@@ -3,6 +3,21 @@ var dataBase = null;
 var active = null;
 var estaciones = [];
 var tipo = document.cookie;
+//rellenarAPIEstaciones();
+function rellenarAPIEstaciones() {
+    relleno({ "identificadorLector": 1, "latitud": 38.384467, "longitud": -0.510654 });
+    relleno({ "identificadorLector": 2, "latitud": 38.387372, "longitud": -0.517551 });
+    relleno({ "identificadorLector": 3, "latitud": 38.389278, "longitud": -0.515136 });
+    function relleno(datos) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/estaciones/",
+            data: datos,
+            success: function (response) {
+            }
+        });
+    }
+}
 //Iniciamos la base de datos y llamamos a cargar estaciones
 function startBD() {
     dataBase = indexedDB.open("monitor", "1");

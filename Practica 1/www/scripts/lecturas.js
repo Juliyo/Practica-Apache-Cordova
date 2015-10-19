@@ -3,7 +3,28 @@ var dataBase = null;
 var active = null;
 var lecturas = [];
 var tipo = document.cookie;       //Variable que indica si usamos base de datos local o api
-
+//rellenarAPILecturas();
+function rellenarAPILecturas() {
+    relleno({ "identificadorIndividuo": 1, "identificadorLector": 1, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.385063, "longitud": -0.511147 });
+    relleno({ "identificadorIndividuo": 2, "identificadorLector": 1, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.384294, "longitud": -0.511263 });
+    relleno({ "identificadorIndividuo": 3, "identificadorLector": 1, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.384010, "longitud": -0.510635 });
+    relleno({ "identificadorIndividuo": 4, "identificadorLector": 1, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.384592, "longitud": -0.509825 });
+    relleno({ "identificadorIndividuo": 5, "identificadorLector": 2, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.387647, "longitud": -0.518554 });
+    relleno({ "identificadorIndividuo": 6, "identificadorLector": 2, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.387821, "longitud": -0.517540 });
+    relleno({ "identificadorIndividuo": 7, "identificadorLector": 2, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.387435, "longitud": -0.518074 });
+    relleno({ "identificadorIndividuo": 8, "identificadorLector": 3, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.389016, "longitud": -0.515507 });
+    relleno({ "identificadorIndividuo": 9, "identificadorLector": 3, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.388785, "longitud": -0.514370 });
+    relleno({ "identificadorIndividuo": 10, "identificadorLector": 3, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.388192, "longitud": -0.516151 });
+    function relleno(datos) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/lecturas/",
+            data: datos,
+            success: function (response) {
+            }
+        });
+    }
+}
 //Iniciamos la base de datos y llamamos a cargar lecturas
 function startBD() {
     dataBase = indexedDB.open("monitor", "1");
