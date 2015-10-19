@@ -2,7 +2,7 @@
 var dataBase = null;
 var active = null;
 var estaciones = [];
-var tipo = "indexed";
+var tipo = document.cookie;
 //Iniciamos la base de datos y llamamos a cargar estaciones
 function startBD() {
     dataBase = indexedDB.open("monitor", "1");
@@ -67,7 +67,7 @@ $("#modificar").click(function (e) {
     });
     $("#tablaEstaciones tbody tr").each(function (fila, obj) {
         if (fila == f) {
-            var html = '<td><input type="checkbox" checked></td><th scope="row"><input class="form-control" type="text" value="';
+            var html = '<td><input type="checkbox" checked></td><th scope="row"><input class="form-control" disabled type="text" value="';
             html = html + estaciones[fila].identificadorLector + '"></th><td><input class="form-control" type="text" value="';
             html = html + estaciones[fila].latitud + '"></th><td><input class="form-control" type="text" value="';
             html = html + estaciones[fila].longitud + '"></td>';
@@ -101,21 +101,39 @@ $("#modificar").click(function (e) {
 });
 $("#eliminar").click(function (e) {
     //Vemos que fila esta marcada con check
+    var contador = 0;
+    var contador2 = 0;
     $("input[type=checkbox]").each(function (fila, obj) {
         if ($(this).is(":checked")) {
-                eliminar(estaciones[fila].identificadorLector);
+            contador++;
         }
     });
-    cargarEstaciones();
+    $("input[type=checkbox]").each(function (fila, obj) {
+        if ($(this).is(":checked")) {
+            contador2++;
+            eliminar(estaciones[fila].identificadorLector,contador,contador2);
+        }
+    });
+    
     
 });
 
 function cargarEstaciones() {
-    if (tipo.localeCompare("indexed") == 0) {
+    if (tipo.localeCompare("db") == 0) {
         estacionesIndexedDB();
     } else {
-
+        estacionesApi();
     }
+}
+function estacionesApi() {
+    estaciones = [];
+    $.getJSON("http://localhost:3000/estaciones", function (data) {
+        for (var key in data) {
+            estaciones.push(data[key]);
+            //alert(JSON.stringify(elements[key]));
+        }
+        generateHtml();
+    });
 }
 //Cargamos las estaciones abriendo una transaccion con la base de datos y guardamos los resultados en elements
 function estacionesIndexedDB() {
@@ -154,14 +172,31 @@ function estacionesIndexedDB() {
 
 function modificar(id,datos) {
    
-    if (tipo.localeCompare("indexed") == 0) {
+    if (tipo.localeCompare("db") == 0) {
         $(".crud2").css({ "display": "none" });
         $(".crud").css({ "display": "" });
         modificarIndexedDB(id,datos);
-        cargarEstaciones();
+        
     } else {
-
+        $(".crud2").css({ "display": "none" });
+        $(".crud").css({ "display": "" });
+        modificarApi(id,datos);
     }
+}
+function modificarApi(id, datos) {
+    var data = {
+        identificadorLector: datos[0],
+        latitud: datos[1],
+        longitud: datos[2]
+    };
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:3000/estaciones/" + id,
+        data: data,
+        success: function (response) {
+            cargarEstaciones();
+        }
+    });
 }
 function modificarIndexedDB(id,datos){
     active = dataBase.result;
@@ -184,6 +219,7 @@ function modificarIndexedDB(id,datos){
 
         request.onsuccess = function (e) {
             console.log("put success!");
+            cargarEstaciones();
         };
 
         request.onerror = function (e) {
@@ -191,14 +227,27 @@ function modificarIndexedDB(id,datos){
         };
     };
 }
-function eliminar(key) {
-    if (tipo.localeCompare("indexed") == 0) {
-        eliminarIndexedDB(key);
+function eliminar(key,contador,contador2) {
+    if (tipo.localeCompare("db") == 0) {
+        eliminarIndexedDB(key,contador,contador2);
     } else {
-
+        eliminarApi(key,contador,contador2);
     }
 }
-function eliminarIndexedDB(key) {
+function eliminarApi(key, contador, contador2) {
+    
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:3000/estaciones/" + key,
+        success: function (response) {
+            if (contador == contador2) {
+                cargarEstaciones();
+            }
+
+        }
+    });
+}
+function eliminarIndexedDB(key,contador,contador2) {
     active = dataBase.result;
     var data = active.transaction(["EstacionesLectoras"], "readwrite");
     var store = data.objectStore("EstacionesLectoras");
@@ -209,6 +258,9 @@ function eliminarIndexedDB(key) {
     request.onsuccess = function (e) {
         // calls even when nothing to remove.
         console.log("removeByKey success!");
+        if (contador == contador2) {
+            cargarEstaciones();
+        }
     };
 
     request.onerror = function (e) {
@@ -219,7 +271,26 @@ function addEstacion() {
     var id = $("#id").val();
     var lat = $("#lat").val();
     var lon = $("#lon").val();
-    add({ identificadorLector: id, latitud: lat, longitud: lon }, "EstacionesLectoras");
-    $('#clickVer').tab('show');
-    cargarEstaciones();
+    if (tipo.localeCompare("db") == 0) {
+        add({ identificadorLector: id, latitud: lat, longitud: lon }, "EstacionesLectoras");
+        $('#clickVer').tab('show');
+        $("#footer").css({ "display": "" });
+        $(".crud2").css({ "display": "none" });
+        $(".crud").css({ "display": "" });
+        cargarEstaciones();
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/estaciones/",
+            data: { identificadorLector: id, latitud: lat, longitud: lon },
+            success: function (response) {
+                $('#clickVer').tab('show');
+                $("#footer").css({ "display": "" });
+                $(".crud2").css({ "display": "none" });
+                $(".crud").css({ "display": "" });
+                cargarEstaciones();
+            }
+        });
+    }
+   
 }

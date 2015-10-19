@@ -27,7 +27,7 @@ function generateHtml() {
 
         html = html + '<tr><td><input type="checkbox" ></td><th scope="row">' + lecturas[i].identificadorIndividuo;
         html = html + '</th><td>' + lecturas[i].identificadorLector;
-        html = html + '</td><td>' + $.format.date(lecturas[i].fechaHora, 'dd/mm/yy H:mm:ss');
+        html = html + '</td><td>' + lecturas[i].fechaHora;
         html = html + '</td><td>' + lecturas[i].latitud + '</td><td>';
         html = html + lecturas[i].longitud + '</td></tr>';
 
@@ -72,10 +72,10 @@ $("#modificar").click(function (e) {
     });
     $("#tablaLecturas tbody tr").each(function (fila, obj) {
         if (fila == f) {
-            var html = '<td><input type="checkbox" checked></td><th scope="row"><input class="form-control" type="text" style="font-size:0.8em;" value="';
-            html = html + lecturas[fila].identificadorIndividuo + '"></th><td><input class="form-control" disabled type="text" style="font-size:0.8em;" value="';
+            var html = '<td><input type="checkbox" checked></td><th scope="row"><input class="form-control" disabled type="text" style="font-size:0.8em;" value="';
+            html = html + lecturas[fila].identificadorIndividuo + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
             html = html + lecturas[fila].identificadorLector + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
-            html = html + $.format.date(lecturas[fila].fechaHora, 'dd/mm/yy H:mm:ss') + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
+            html = html + lecturas[fila].fechaHora + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
             html = html + lecturas[fila].latitud + '"></th><td><input class="form-control" type="text" style="font-size:0.8em;" value="';
             html = html + lecturas[fila].longitud + '"></td>';
             $(this).empty();
@@ -87,10 +87,14 @@ $("#modificar").click(function (e) {
             estación y los datos a modificar*/
             $("#aceptar").click(function (e) {
                 var datos = [];
-                $(".form-control").each(function (fila, obj) {
-                    datos[fila] = $(this).val();
+                $(".form-control").each(function (col, obj) {
+                    
+                        datos[col] = $(this).val();
+                    
+                    
                 });
-                modificar(lecturas[fila].identificadorLector, datos);
+                
+                modificar(lecturas[fila].identificadorIndividuo, datos);
             });
             /*Si el usuario cancela la acción de modificar se vuelve a generar el html de la tabla*/
             $("#cancelar").click(function (e) {
@@ -108,12 +112,21 @@ $("#modificar").click(function (e) {
 });
 $("#eliminar").click(function (e) {
     //Vemos que fila esta marcada con check
+    var contador = 0;
+    var contador2 = 0;
     $("input[type=checkbox]").each(function (fila, obj) {
         if ($(this).is(":checked")) {
-            eliminar(lecturas[fila].identificadorLector);
+            contador++;
         }
     });
-    cargarLecturas();
+    $("input[type=checkbox]").each(function (fila, obj) {
+        if ($(this).is(":checked")) {
+            contador2++;
+            eliminar(lecturas[fila].identificadorIndividuo,contador,contador2);
+        }
+    });
+    
+    
 
 });
 
@@ -176,7 +189,7 @@ function modificar(id, datos) {
         $(".crud2").css({ "display": "none" });
         $(".crud").css({ "display": "" });
         modificarIndexedDB(id, datos);
-        cargarLecturas();
+        
     } else {
         $(".crud2").css({ "display": "none" });
         $(".crud").css({ "display": "" });
@@ -184,11 +197,18 @@ function modificar(id, datos) {
         
     }
 }
-function modificarApi(id,datos) {
+function modificarApi(id, datos) {
+    var data = {
+        identificadorIndividuo: datos[0],
+        identificadorLector: datos[1],
+        fechaHora: datos[2],
+        latitud: datos[3],
+        longitud: datos[4]
+    };
     $.ajax({
         type: "PUT",
         url: "http://localhost:3000/lecturas/"+id,
-        data: datos,
+        data: data,
         success: function (response) {
             cargarLecturas();
         }
@@ -207,14 +227,16 @@ function modificarIndexedDB(id, datos) {
             return;
         }
         // modify 'name' to upperCase
-
-        data.identificadorLector = datos[0];
-        data.latitud = datos[1];
-        data.longitud = datos[2];
+        data.identificadorIndividuo = datos[0];
+        data.identificadorLector = datos[1];
+        data.fechaHora = datos[2];
+        data.latitud = datos[3];
+        data.longitud = datos[4];
         var request = object.put(data);
 
         request.onsuccess = function (e) {
             console.log("put success!");
+            cargarLecturas();
         };
 
         request.onerror = function (e) {
@@ -222,14 +244,26 @@ function modificarIndexedDB(id, datos) {
         };
     };
 }
-function eliminar(key) {
-    if (tipo.localeCompare("indexed") == 0) {
-        eliminarIndexedDB(key);
+function eliminar(key,contador,contador2) {
+    if (tipo.localeCompare("db") == 0) {
+        eliminarIndexedDB(key,contador,contador2);
     } else {
-
+        eliminarApi(key,contador,contador2);
     }
 }
-function eliminarIndexedDB(key) {
+function eliminarApi(key,contador,contador2) {
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:3000/lecturas/" + key,
+        success: function (response) {
+            if (contador == contador2) {
+                cargarLecturas();
+            }
+            
+        }
+    });
+}
+function eliminarIndexedDB(key,contador,contador2) {
     active = dataBase.result;
     var data = active.transaction(["Lecturas"], "readwrite");
     var store = data.objectStore("Lecturas");
@@ -240,6 +274,9 @@ function eliminarIndexedDB(key) {
     request.onsuccess = function (e) {
         // calls even when nothing to remove.
         console.log("removeByKey success!");
+        if (contador == contador2) {
+            cargarLecturas();
+        }
     };
 
     request.onerror = function (e) {
@@ -252,7 +289,27 @@ function addLectura() {
     var fecha = $("#fecha").val();
     var lat = $("#lat").val();
     var lon = $("#lon").val();
-    add({ identificadorIndividuo: id,identificadorLector: ide,fechaHora: fecha, latitud: lat, longitud: lon }, "Lecturas");
-    $('#clickVer').tab('show');
-    cargarLecturas();
+    if (tipo.localeCompare("db") == 0) {
+        add({ identificadorIndividuo: id, identificadorLector: ide, fechaHora: fecha, latitud: lat, longitud: lon }, "Lecturas");
+        $('#clickVer').tab('show');
+        $("#footer").css({ "display": "" });
+        $(".crud2").css({ "display": "none" });
+        $(".crud").css({ "display": "" });
+        cargarLecturas();
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/lecturas/",
+            data: { identificadorIndividuo: id, identificadorLector: ide, fechaHora: fecha, latitud: lat, longitud: lon },
+            success: function (response) {
+                $('#clickVer').tab('show');
+                $("#footer").css({ "display": "" });
+                $(".crud2").css({ "display": "none" });
+                $(".crud").css({ "display": "" });
+                cargarLecturas();
+            }
+        });
+    }
+    
+    
 }
