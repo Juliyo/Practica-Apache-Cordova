@@ -113,6 +113,7 @@
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [
+    "www\\scripts\\lecturas.js",
     "www\\scripts\\estaciones.js"
   ],
   "deletedFiles": [],

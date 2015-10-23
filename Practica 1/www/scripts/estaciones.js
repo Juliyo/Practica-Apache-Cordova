@@ -3,7 +3,7 @@ var dataBase = null;
 var active = null;
 var estaciones = [];
 var tipo = document.cookie;
-rellenarAPIEstaciones();
+//rellenarAPIEstaciones();
 function rellenarAPIEstaciones() {
     relleno({ "identificadorLector": 1, "latitud": 38.384467, "longitud": -0.510654 });
     relleno({ "identificadorLector": 2, "latitud": 38.387372, "longitud": -0.517551 });
