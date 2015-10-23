@@ -3,7 +3,7 @@ var dataBase = null;
 var active = null;
 var lecturas = [];
 var tipo = document.cookie;       //Variable que indica si usamos base de datos local o api
-//rellenarAPILecturas();
+rellenarAPILecturas();
 function rellenarAPILecturas() {
     relleno({ "identificadorIndividuo": 1, "identificadorLector": 1, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.385063, "longitud": -0.511147 });
     relleno({ "identificadorIndividuo": 2, "identificadorLector": 1, "fechaHora": $.format.date(new Date(), 'dd/mm/yy H:mm:ss'), "latitud": 38.384294, "longitud": -0.511263 });
@@ -32,7 +32,7 @@ function startBD() {
         active = dataBase.result;
     };
     dataBase.onsuccess = function (e) {
-        alert('Base de datos cargada correctamente');
+        console.log('Base de datos cargada correctamente');
         cargarLecturas();
     };
 }

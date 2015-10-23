@@ -71,7 +71,7 @@ function startBD(){
         active = dataBase.result;
     };
     dataBase.onsuccess = function (e) {
-        alert('Base de datos cargada correctamente');
+        console.log('Base de datos cargada correctamente');
         cargarEstaciones();
     };
 }
@@ -89,9 +89,18 @@ function cargarEstaciones(){
 llamaremos a markersEstaciones y le pasaremos el objeto obtenido*/
 function estacionesApi() {
     $.getJSON("http://localhost:3000/estaciones", function (data) {
+        var prop = 'identificadorLector';
+        var asc = true;
+        var data = data.sort(function (a, b) {
+            if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+            else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+        });
+        
         markersEstaciones(data);
+
     });
     
+    //
 }
 /*Este metodo se encarga de leer la base de datos local y al terminar llamar a markersEstaciones 
 pasandole un array de estaciones*/
@@ -137,8 +146,8 @@ function markersEstaciones(elements) {
                 infoEstaciones[innerkey - 1].open(map, markers[innerkey - 1]);
                 setTimeout(function () { infoEstaciones[innerkey-1].close(); }, '1000');
                 cargarLecturas(innerkey);       /*Llamamos a cargarLecturas para que muestre en el mapa las lecturas de las estacion con id innerkey*/
-                map.setZoom(16);
-                map.setCenter(markers[innerkey - 1].getPosition());
+                map.setZoom                  
+                map.setCenter(markers[innerkey-1].getPosition());
             }
         }(id));
     }

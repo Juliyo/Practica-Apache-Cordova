@@ -3,7 +3,7 @@ var dataBase = null;
 var active = null;
 var estaciones = [];
 var tipo = document.cookie;
-//rellenarAPIEstaciones();
+rellenarAPIEstaciones();
 function rellenarAPIEstaciones() {
     relleno({ "identificadorLector": 1, "latitud": 38.384467, "longitud": -0.510654 });
     relleno({ "identificadorLector": 2, "latitud": 38.387372, "longitud": -0.517551 });
@@ -25,7 +25,7 @@ function startBD() {
         active = dataBase.result;
     };
     dataBase.onsuccess = function (e) {
-        alert('Base de datos cargada correctamente');
+        console.log('Base de datos cargada correctamente');
         cargarEstaciones();
     };
 }
@@ -144,6 +144,12 @@ function estacionesApi() {
     estaciones = [];
     $.getJSON("http://localhost:3000/estaciones", function (data) {
         for (var key in data) {
+            var prop = 'identificadorLector';
+            var asc = true;
+            var data = data.sort(function (a, b) {
+                if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+                else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+            });
             estaciones.push(data[key]);
             //alert(JSON.stringify(elements[key]));
         }

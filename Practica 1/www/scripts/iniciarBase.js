@@ -36,7 +36,7 @@ function startDB() {
     };
 
     dataBase.onsuccess = function (e) {
-        alert('Base de datos cargada correctamente');
+        console.log('Base de datos cargada correctamente');
         active = dataBase.result;
         if (relleno == true) {
             rellenar();
@@ -45,7 +45,7 @@ function startDB() {
     };
         
     dataBase.onerror = function (e)  {
-        alert('Error cargando la base de datos');
+        console.log('Error cargando la base de datos');
     };
 }
 
@@ -65,7 +65,7 @@ function add(o, tabla) {
 
         request.onerror = function (e) {
             console.log("Add error", e.target.error.name);
-            alert("Estación repetida!!!!");
+            console.log("Estación repetida!!!!");
         };
     }else if(tabla.localeCompare("Lecturas")==0){
         estacion = data.objectStore("Lecturas");
@@ -76,7 +76,7 @@ function add(o, tabla) {
 
         request.onerror = function (e) {
             console.log("Add error", e.target.error.name);
-            alert("Lectura repetida!!!!");
+            console.log("Lectura repetida!!!!");
         };
     }
 

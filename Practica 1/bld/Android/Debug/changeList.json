@@ -109,9 +109,7 @@
     "res\\screens\\android\\screen-mdpi-portrait.png",
     "www\\scripts\\iniciarbase.js"
   ],
-  "deletedFilesIos": [
-    "npm-debug.log"
-  ],
+  "deletedFilesIos": [],
   "addedPluginsIos": [],
   "deletedPluginsIos": [],
   "changedFiles": [

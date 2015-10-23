@@ -119,21 +119,22 @@
     <script src="scripts/iniciarBase.js"></script>
     <script src="scripts/platformOverrides.js"></script>
     <script>
-        if (document.cookie == null) {
+        if (document.cookie == "") {
             var tipo = $("#tipo").val();
             document.cookie = tipo;
-        }
-        if (document.cookie.localeCompare("db") == 0) {
-            $("#tipo").val("db");
         } else {
-            $("#tipo").val("api");
+            if (document.cookie.localeCompare("db") == 0) {
+                $("#tipo").val("db");
+            } else {
+                $("#tipo").val("api");
+            }
         }
+        
         
         $("#tipo").change(function () {
             var tipo = $("#tipo").val();
             document.cookie = tipo;
-            var x = document.cookie;
-            alert(x);
+            
         });
     </script>
     <script src="scripts/jquery-dateFormat.js"></script>
